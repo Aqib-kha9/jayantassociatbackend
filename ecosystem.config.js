@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   apps: [{
     name: 'yms-backend',
     script: './src/app.js',
