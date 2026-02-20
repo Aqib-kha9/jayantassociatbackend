@@ -1,6 +1,7 @@
 import Vehicle from '../models/Vehicle.js';
 import EntryExitLog from '../models/EntryExitLog.js';
 import Yard from '../models/Yard.js';
+import User from '../models/User.js';
 
 // @desc    Get dashboard statistics
 // @route   GET /api/dashboard/stats
@@ -191,6 +192,11 @@ export const getYardStatus = async (req, res) => {
         }
 
         const currentOccupancy = await Vehicle.countDocuments({ status: 'PARKED', ...yardFilter });
+        const staffCount = await User.countDocuments({ 
+            // If super admin looking at all yards, count all relevant staff. Else specific yard.
+            ...(yardFilter.yardId ? { branchId: yardFilter.yardId } : {}),
+            role: { $in: ['YARD_MANAGER', 'YARD_STAFF'] } 
+        });
         
         // Calculate dynamic efficiency (e.g., Space Utilization %)
         // Avoid division by zero
@@ -208,6 +214,7 @@ export const getYardStatus = async (req, res) => {
                 name: managerName || 'Unassigned',
                 role: 'Yard Manager'
             },
+            staffCount: staffCount,
             efficiency: {
                 score: efficiencyScore,
                 trend: efficiencyTrend

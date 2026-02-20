@@ -15,18 +15,31 @@ const stockAuditSchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
-    totalVehicles: {
-        type: Number,
-        default: 0
-    },
-    verifiedCount: {
-        type: Number,
-        default: 0
-    },
-    pendingCount: {
-        type: Number,
-        default: 0
-    },
+    expectedVehicles: [
+        {
+            vehicleId: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Vehicle'
+            },
+            status: {
+                type: String,
+                enum: ['PENDING', 'SCANNED'],
+                default: 'PENDING'
+            }
+        }
+    ],
+    scannedVehicles: [
+        {
+            vehicleId: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Vehicle'
+            },
+            scannedAt: {
+                type: Date,
+                default: Date.now
+            }
+        }
+    ],
     discrepancies: [
         {
             vehicleId: {
@@ -35,11 +48,15 @@ const stockAuditSchema = new mongoose.Schema({
             },
             status: {
                 type: String,
-                enum: ['MISSING', 'WRONG_LOCATION', 'FOUND_EXTRA'],
+                enum: ['MISSING', 'FOUND_EXTRA'],
             },
             notes: String
         }
     ],
+    totalVehicles: { type: Number, default: 0 },
+    verifiedCount: { type: Number, default: 0 },
+    missingCount: { type: Number, default: 0 },
+    extraCount: { type: Number, default: 0 },
     status: {
         type: String,
         enum: ['IN_PROGRESS', 'COMPLETED', 'CANCELLED'],
