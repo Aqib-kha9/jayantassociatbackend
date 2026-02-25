@@ -55,7 +55,6 @@ const vehicleSchema = new mongoose.Schema({
         interior: String,
         startingCondition: String, // [NEW] Starts, Does Not Start, Jam, Key Missing, Tochan
         starts: { type: Boolean, default: false },
-        hasKey: { type: Boolean, default: false }, // [NEW]
         battery: String,
         batteryBrandModel: String,
         batteryMake: String, // [NEW]
@@ -106,21 +105,21 @@ const vehicleSchema = new mongoose.Schema({
     tyreDetails: {
         noOfAxles: Number,
         noOfTyres: Number,
-        tyreMake: String, // Legacy global make
-        frontRightMake: String, // [NEW]
-        frontLeftMake: String, // [NEW]
-        rearRightMake: String, // [NEW]
-        rearLeftMake: String, // [NEW]
-        stepneyMake: String, // [NEW]
+        tyreMake: String, // Changed to tyreMake to match schema view
         goodTyresCount: Number,
         badTyresCount: Number,
         frontRight: String,
         frontLeft: String,
         rearRight: String,
         rearLeft: String,
-        rearRight2: String, 
+        frontRightMake: String,
+        frontLeftMake: String,
+        rearRightMake: String,
+        rearLeftMake: String,
+        rearRight2: String,
         rearLeft2: String,
-        stepneyCondition: String
+        stepneyCondition: String,
+        stepneyMake: String
     },
 
     // --- 8. Key Inventory ---

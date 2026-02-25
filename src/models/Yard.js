@@ -28,7 +28,7 @@ const yardSchema = new mongoose.Schema({
     },
     headerTitle: {
         type: String,
-        default: 'Jayant Associates'
+        default: 'Jaynt associate'
     },
     contactNumber: String,
     email: String,
