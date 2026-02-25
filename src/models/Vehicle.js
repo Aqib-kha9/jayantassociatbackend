@@ -55,6 +55,7 @@ const vehicleSchema = new mongoose.Schema({
         interior: String,
         startingCondition: String, // [NEW] Starts, Does Not Start, Jam, Key Missing, Tochan
         starts: { type: Boolean, default: false },
+        hasKey: { type: Boolean, default: false }, // [NEW]
         battery: String,
         batteryBrandModel: String,
         batteryMake: String, // [NEW]
@@ -105,14 +106,19 @@ const vehicleSchema = new mongoose.Schema({
     tyreDetails: {
         noOfAxles: Number,
         noOfTyres: Number,
-        tyreMake: String, // Changed to tyreMake to match schema view
+        tyreMake: String, // Legacy global make
+        frontRightMake: String, // [NEW]
+        frontLeftMake: String, // [NEW]
+        rearRightMake: String, // [NEW]
+        rearLeftMake: String, // [NEW]
+        stepneyMake: String, // [NEW]
         goodTyresCount: Number,
         badTyresCount: Number,
         frontRight: String,
         frontLeft: String,
         rearRight: String,
         rearLeft: String,
-        rearRight2: String, // Extra axle support logic if needed, but keeping simple for now
+        rearRight2: String, 
         rearLeft2: String,
         stepneyCondition: String
     },
